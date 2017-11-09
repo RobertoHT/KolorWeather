@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Kolor Weather</string>
+    <string name="description">No Data</string>
+    <string name="localization">Alcatraz, California</string>
+    <string name="temp_placeholder">0.0 C</string>
+    <string name="precip_placeholder">0.0 %</string>
+    <string name="precip">PRECIP</string>
+    <string name="temp">TEMP</string>
+    <string name="daily_button_text">DAILY WEATHER</string>
+    <string name="hourly_button_text">hourly Weather</string>
+    <string name="icon_description">weather icon</string>
 </resources>
