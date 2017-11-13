@@ -11,4 +11,8 @@
     <string name="icon_description">weather icon</string>
     <string name="language">en</string>
     <string name="units">si</string>
+    <string name="network_error">NETWORK ERROR</string>
+    <string name="retry">RETRY?</string>
+    <string name="daily_weather">Daily Weather</string>
+    <string name="summary_of_the_week">Summary of the week</string>
 </resources>

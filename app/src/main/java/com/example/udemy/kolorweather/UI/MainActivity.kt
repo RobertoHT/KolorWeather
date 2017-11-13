@@ -1,9 +1,11 @@
-package com.example.udemy.kolorweather
+package com.example.udemy.kolorweather.UI
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.content.res.ResourcesCompat
+import android.view.View
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -11,6 +13,7 @@ import com.android.volley.Response
 import com.example.udemy.kolorweather.API.API_KEY
 import com.example.udemy.kolorweather.API.DARK_SKY_URL
 import com.example.udemy.kolorweather.API.JSONParser
+import com.example.udemy.kolorweather.R
 import com.example.udemy.kolorweather.models.CurrentWeather
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -56,8 +59,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayErrorMessage() {
-        val snackbar = Snackbar.make(main, "NETWORK ERROR", Snackbar.LENGTH_INDEFINITE)
-                .setAction("RETRY?", { getWeather() })
+        val snackbar = Snackbar.make(main, getString(R.string.network_error), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.retry), { getWeather() })
         snackbar.show()
     }
 
@@ -67,5 +70,17 @@ class MainActivity : AppCompatActivity() {
         precipTextView.text = getString(R.string.precip_placeholder, precipProbability)
         descriptionTextView.text = currentWeather.summary
         iconImageView.setImageDrawable(ResourcesCompat.getDrawable(resources, currentWeather.getIconResource(), null))
+    }
+
+    fun startDailyActivity(view:View) {
+        val intent = Intent()
+        intent.setClass(this, DailyWeatherActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun startHourlyActivity(view:View) {
+        val intent = Intent()
+        intent.setClass(this, HourlyWeatherActivity::class.java)
+        startActivity(intent)
     }
 }

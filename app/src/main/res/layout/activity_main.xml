@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="com.example.udemy.kolorweather.MainActivity">
+    tools:context="com.example.udemy.kolorweather.UI.MainActivity">
 
     <ImageView
         android:id="@+id/iconImageView"
@@ -104,6 +104,7 @@
         android:layout_height="wrap_content"
         android:text="@string/daily_button_text"
         android:textStyle="bold"
+        android:onClick="startDailyActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -115,6 +116,7 @@
         android:layout_height="wrap_content"
         android:text="@string/hourly_button_text"
         android:textStyle="bold"
+        android:onClick="startHourlyActivity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />

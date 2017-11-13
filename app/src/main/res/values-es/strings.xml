@@ -12,4 +12,6 @@
     <string name="icon_description">weather icon</string>
     <string name="language">es</string>
     <string name="units">si</string>
+    <string name="network_error">ERROR DE RED</string>
+    <string name="retry">REINTENTAR?</string>
 </resources>
