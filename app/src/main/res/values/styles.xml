@@ -8,5 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    
+    <style name="ListItem">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
 
 </resources>
