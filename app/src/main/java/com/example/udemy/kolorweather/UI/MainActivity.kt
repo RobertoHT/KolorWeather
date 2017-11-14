@@ -10,18 +10,22 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.android.volley.Response
-import com.example.udemy.kolorweather.API.API_KEY
-import com.example.udemy.kolorweather.API.DARK_SKY_URL
-import com.example.udemy.kolorweather.API.JSONParser
+import com.example.udemy.kolorweather.API.*
 import com.example.udemy.kolorweather.R
+import com.example.udemy.kolorweather.extensions.action
+import com.example.udemy.kolorweather.extensions.displaySnack
 import com.example.udemy.kolorweather.models.CurrentWeather
+import com.example.udemy.kolorweather.models.Day
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
     val TAG = MainActivity::class.java.simpleName
-    val jsonParser = JSONParser()
+    var days:ArrayList<Day> = ArrayList()
+    companion object {
+        val DAILY_WEATHER = "DAILY_WEATHER"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +49,12 @@ class MainActivity : AppCompatActivity() {
 
         // Request a string response from the provided URL.
         val stringRequest = StringRequest(Request.Method.GET, url,
-                Response.Listener<String> { response ->
-                    val responseJSON = JSONObject(response)
+                Response.Listener<String> {
+                    val responseJSON = JSONObject(it)
 
-                    val currentWeather = jsonParser.getCurrentWeather(responseJSON)
+                    val currentWeather = getCurrentWeather(responseJSON)
+
+                    days = getDailyWeather(responseJSON)
 
                     buildCurrentWeatherUI(currentWeather)
                 }, Response.ErrorListener {
@@ -59,9 +65,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayErrorMessage() {
-        val snackbar = Snackbar.make(main, getString(R.string.network_error), Snackbar.LENGTH_INDEFINITE)
-                .setAction(getString(R.string.retry), { getWeather() })
-        snackbar.show()
+        main.displaySnack(getString(R.string.network_error), Snackbar.LENGTH_INDEFINITE) {
+            action(getString(R.string.retry)) {
+                getWeather()
+            }
+        }
     }
 
     private fun buildCurrentWeatherUI(currentWeather: CurrentWeather) {
@@ -73,8 +81,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startDailyActivity(view:View) {
-        val intent = Intent()
-        intent.setClass(this, DailyWeatherActivity::class.java)
+        val intent = Intent(this, DailyWeatherActivity::class.java).apply {
+            putParcelableArrayListExtra(DAILY_WEATHER, days)
+        }
         startActivity(intent)
     }
 
