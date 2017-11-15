@@ -8,16 +8,18 @@ import java.util.*
 /**
  * Created by Roberto on 13/11/17.
  */
-data class Day(val time:Long, val minTemp:Double, val maxTemp:Double):Parcelable {
+data class Day(val time:Long, val minTemp:Double, val maxTemp:Double, val timezone:String):Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readDouble(),
-            parcel.readDouble())
+            parcel.readDouble(),
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(time)
         parcel.writeDouble(minTemp)
         parcel.writeDouble(maxTemp)
+        parcel.writeString(timezone)
     }
 
     override fun describeContents(): Int {
@@ -36,6 +38,7 @@ data class Day(val time:Long, val minTemp:Double, val maxTemp:Double):Parcelable
 
     fun getFormattedTime():String {
         val formatter = SimpleDateFormat("EEEE", Locale.US)
+        formatter.timeZone = TimeZone.getTimeZone(timezone)
         val date = Date(time * 1000)
         return formatter.format(date)
     }

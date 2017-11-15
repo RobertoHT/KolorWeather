@@ -8,16 +8,18 @@ import java.util.*
 /**
  * Created by Roberto on 14/11/17.
  */
-data class Hour(val time:Long, val temp:Double, val precip:Double):Parcelable {
+data class Hour(val time:Long, val temp:Double, val precip:Double, val timeZone:String):Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readLong(),
             parcel.readDouble(),
-            parcel.readDouble())
+            parcel.readDouble(),
+            parcel.readString())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(time)
         parcel.writeDouble(temp)
         parcel.writeDouble(precip)
+        parcel.writeString(timeZone)
     }
 
     override fun describeContents(): Int {
@@ -35,7 +37,8 @@ data class Hour(val time:Long, val temp:Double, val precip:Double):Parcelable {
     }
 
     fun getFormattedTime():String {
-        val formatter = SimpleDateFormat("h:mm a")
+        val formatter = SimpleDateFormat("h:mm a", Locale.US)
+        formatter.timeZone = TimeZone.getTimeZone(timeZone)
         val date = Date(time * 1000)
         return formatter.format(date)
     }
