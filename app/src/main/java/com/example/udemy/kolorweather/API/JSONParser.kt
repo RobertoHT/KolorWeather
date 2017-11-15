@@ -3,6 +3,7 @@ package com.example.udemy.kolorweather.API
 import com.example.udemy.kolorweather.extensions.iterator
 import com.example.udemy.kolorweather.models.CurrentWeather
 import com.example.udemy.kolorweather.models.Day
+import com.example.udemy.kolorweather.models.Hour
 import org.json.JSONObject
 
 /**
@@ -35,4 +36,21 @@ fun getDailyWeather(response: JSONObject):ArrayList<Day> {
     }
 
     return days
+}
+
+fun getHourlyWeather(response: JSONObject):ArrayList<Hour> {
+    val hourlyJSON = response.getJSONObject(hourly)
+    val hourJSONArray = hourlyJSON.getJSONArray(data)
+
+    val hours = ArrayList<Hour>()
+    for (jsonHour in hourJSONArray) {
+
+        val time = jsonHour.getLong(time)
+        val temperature = jsonHour.getDouble(temperature)
+        val precipProba = jsonHour.getDouble(precipProbability)
+
+        hours.add(Hour(time, temperature, precipProba))
+    }
+
+    return hours
 }

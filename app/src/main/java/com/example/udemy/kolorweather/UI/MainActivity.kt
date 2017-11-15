@@ -16,6 +16,7 @@ import com.example.udemy.kolorweather.extensions.action
 import com.example.udemy.kolorweather.extensions.displaySnack
 import com.example.udemy.kolorweather.models.CurrentWeather
 import com.example.udemy.kolorweather.models.Day
+import com.example.udemy.kolorweather.models.Hour
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 
@@ -23,8 +24,10 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
     val TAG = MainActivity::class.java.simpleName
     var days:ArrayList<Day> = ArrayList()
+    var hours:ArrayList<Hour> = ArrayList()
     companion object {
         val DAILY_WEATHER = "DAILY_WEATHER"
+        val HOURLY_WEATHER = "HOURLY_WEATHER"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                     val currentWeather = getCurrentWeather(responseJSON)
 
                     days = getDailyWeather(responseJSON)
+                    hours = getHourlyWeather(responseJSON)
 
                     buildCurrentWeatherUI(currentWeather)
                 }, Response.ErrorListener {
@@ -88,8 +92,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startHourlyActivity(view:View) {
-        val intent = Intent()
-        intent.setClass(this, HourlyWeatherActivity::class.java)
+        val intent = Intent(this, HourlyWeatherActivity::class.java).apply {
+            putParcelableArrayListExtra(HOURLY_WEATHER, hours)
+        }
         startActivity(intent)
     }
 }
