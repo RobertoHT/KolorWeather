@@ -17,7 +17,8 @@ fun getCurrentWeather(response: JSONObject):CurrentWeather {
         return CurrentWeather(getString("icon"),
                 getString("summary"),
                 getDouble("temperature"),
-                getDouble("precipProbability"))
+                getDouble("precipProbability"),
+                getLong("time"))
     }
 }
 

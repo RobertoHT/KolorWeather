@@ -14,4 +14,9 @@
     <string name="units">si</string>
     <string name="network_error">ERROR DE RED</string>
     <string name="retry">REINTENTAR?</string>
+    <string name="daily_weather">Clima diario</string>
+    <string name="summary_of_the_week">Resumen de la semana</string>
+    <string name="hourly_weather">Clima por hora</string>
+    <string name="summary_of_the_day">Resumen del día</string>
+    <string name="error_permission">Debes habilitar el permiso de ubicación</string>
 </resources>

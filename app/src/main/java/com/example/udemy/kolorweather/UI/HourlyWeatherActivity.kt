@@ -3,6 +3,7 @@ package com.example.udemy.kolorweather.UI
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.example.udemy.kolorweather.R
 import com.example.udemy.kolorweather.adapters.HourAdapter
 import com.example.udemy.kolorweather.models.Hour
@@ -19,7 +20,15 @@ class HourlyWeatherActivity : AppCompatActivity() {
         intent.let {
             val hours:ArrayList<Hour> = it.getParcelableArrayListExtra(MainActivity.HOURLY_WEATHER)
 
-            hourlyRecyclerView.adapter = HourAdapter(hours)
+            if (hours.size > 0) {
+                hourlyRecyclerView.visibility = View.VISIBLE
+                noDataTextView.visibility = View.GONE
+
+                hourlyRecyclerView.adapter = HourAdapter(hours)
+            } else {
+                hourlyRecyclerView.visibility = View.GONE
+                noDataTextView.visibility = View.VISIBLE
+            }
         }
     }
 }

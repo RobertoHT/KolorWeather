@@ -1,11 +1,13 @@
 package com.example.udemy.kolorweather.models
 
 import com.example.udemy.kolorweather.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Roberto on 10/11/17.
  */
-data class CurrentWeather(var icon:String, var summary:String, var temp:Double, var precip:Double) {
+data class CurrentWeather(val icon:String, val summary:String, val temp:Double, var precip:Double, val time:Long) {
     fun getIconResource():Int {
         when (icon) {
             "clear-night" -> return R.drawable.clear_night
@@ -23,5 +25,11 @@ data class CurrentWeather(var icon:String, var summary:String, var temp:Double, 
             "partly-cloudy-day" -> return R.drawable.cloudy
             else -> return R.drawable.na
         }
+    }
+
+    fun getFormattedHour():String {
+        val formatter = SimpleDateFormat("hh:mm a", Locale.US)
+        val date = Date(time * 1000)
+        return formatter.format(date)
     }
 }
